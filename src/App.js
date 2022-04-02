@@ -4,8 +4,8 @@ import './css/style.css'
 
 function App() {
   return (
-    //  <Dashboard />
-     <PresaleTool />
+     <Dashboard />
+    //  <PresaleTool />
   );
 }
 

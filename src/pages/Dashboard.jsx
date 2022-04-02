@@ -1,8 +1,183 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Web3 from 'web3'
+import { PTMtoken } from './ptmTokenAbis';
+
+const web3 = new Web3(Web3.givenProvider);
+
+const contractAddress = '0x7853Ac81c1Cc9870B877ba6C05c614DA2a3a5548'; // mainnet
+const PTMContract = new web3.eth.Contract(PTMtoken, contractAddress);
+console.log(PTMContract);
 
 export default function Dashboard() {
+
+  const [walletAddress, setWallet] = useState("");
+    const [status, setStatus] = useState("");
+    const [connected, setConnected] = useState(false);
+
+    const tokensData = [
+      {name: "BOO token", img: "", des: "This is demo", address: "0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE"},
+      {name: "TOMB token", img: "", des: "This is demo", address: "0x6c021ae822bea943b2e66552bde1d2696a53fbb7"},
+      {name: "DAI token", img: "", des: "This is demo", address: "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E"},
+      {name: "Fantom", img: "", des: "This is demo", address: ""},
+      {name: "Terra LUNA", img: "", des: "This is demo", address: "0x95dD59343a893637BE1c3228060EE6afBf6F0730"},
+    ]
+
+
+    useEffect(() => {
+      async function init() {
+          const { address, status, conStat } = await getCurrentWalletConnected();
+          setWallet(address)
+          setStatus(status);
+          setConnected(conStat);
+          addWalletListener();
+
+          // if (connected) {
+          //     const amount = await web3.eth.getBalance(walletAddress);
+          //     setMaxAmount(amount / weiAmount);
+          // }
+      }
+      init();
+  }, [walletAddress, connected]);
+
+  const getCurrentWalletConnected = async () => {
+    if (window.ethereum) {
+        try {
+            const addressArray = await window.ethereum.request({
+                method: "eth_accounts",
+            });
+            if (addressArray.length > 0) {
+                return {
+                    address: addressArray[0],
+                    status: "👆🏽 Buy PTM using DAI",
+                    conStat: true,
+                };
+            } else {
+                return {
+                    address: "",
+                    status: "🦊 Connect to Metamask using the top right button.",
+                    conStat: false,
+                };
+            }
+        } catch (err) {
+            return {
+                address: "",
+                status: "😥 " + err.message,
+                conStat: false,
+            };
+        }
+    } else {
+        return {
+            address: "",
+            status: (
+                <span>
+                    <p>
+                        {" "}
+                        🦊{" "}
+                        <a target="" href={`https://metamask.io/download.html`}>
+                            You must install Metamask, a virtual Ethereum wallet, in your
+                            browser.
+                        </a>
+                    </p>
+                </span>
+            ),
+            conStat: false,
+        };
+    }
+};
+
+
+  function addWalletListener() {
+    if (window.ethereum) {
+        window.ethereum.on("accountsChanged", (accounts) => {
+            if (accounts.length > 0) {
+                setWallet(accounts[0]);
+                setStatus("👆🏽 Buy PTM using DAI");
+                setConnected(true);
+            } else {
+                setWallet("");
+                setStatus("🦊 Connect to Metamask using the top right button.");
+                setConnected(false);
+            }
+        });
+    } else {
+        setWallet("");
+        setStatus(
+            <p>
+                {" "}
+                🦊{" "}
+                <a target="" href={`https://metamask.io/download.html`}>
+                    You must install Metamask, a virtual Ethereum wallet, in your
+                    browser.
+                </a>
+            </p>
+        );
+        setConnected(false);
+    }
+}
+
+
+
+
+
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+        try {
+            const addressArray = await window.ethereum.request({
+                method: "eth_requestAccounts",
+            });
+            const obj = {
+                status: "👆🏽 Buy SHUB using BNB",
+                address: addressArray[0],
+                conStat: true,
+            };
+            return obj;
+        } catch (err) {
+            return {
+                address: "",
+                status: "😥 " + err.message,
+                conStat: false,
+            };
+        }
+    } else {
+        return {
+            address: "",
+            status: (
+                <span>
+                    <p>
+                        {" "}
+                        🦊{" "}
+                        <a target="" href={`https://metamask.io/download.html`}>
+                            You must install Metamask, a virtual Ethereum wallet, in your
+                            browser.
+                        </a>
+                    </p>
+                </span>
+            ),
+            conStat: false,
+        };
+    }
+};
+
+
+const setRewardToken = async (address) => {
+  await PTMContract.methods.setRewardToken(address).send({
+    from: walletAddress,
+    to: contractAddress,
+    // value: inputAmout * weiAmount
+});
+alert("token set!!")
+}
+
+const connectWalletPressed = async () => {
+    const walletResponse = await connectWallet();
+    setStatus(walletResponse.status);
+    setWallet(walletResponse.address);
+    setConnected(walletResponse.conStat);
+}
+
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -76,7 +251,14 @@ export default function Dashboard() {
                 </li>
               </ul>
               <ul className=' ml-auto'>
-                <button className='btn btn-primary navbtn'>CONNECT WALLET</button>
+              <button className='btn btn-primary navbtn' onClick={connectWalletPressed}>{walletAddress.length > 0 ? (
+                        "Connected: " +
+                        String(walletAddress).substring(0, 6) +
+                        "..." +
+                        String(walletAddress).substring(38)
+                    ) : (
+                            <span>CONNECT WALLET</span>
+                        )}</button>
               </ul>
             </div>
           </div>
@@ -105,71 +287,18 @@ export default function Dashboard() {
       <div className='coin'>
         <div className='container'>
           <div className='row'>
+            {tokensData.map(obj => (
             <div className='col-lg-4 col-md-6 col-sm-12'>
               <div className='box'>
                 {' '}
                 <img className='coinIcon' src='images/shiba.png' alt="shiba" />
-                <h4 className='text-center coin'>SHIBA</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
+                <h4 className='text-center coin'>{obj.name}</h4>
+                <h4 className='text-center dummytext'>{obj.des}</h4>
+                <button className='btn btn-primary coinbtn' onClick={() => setRewardToken(obj.address)}>Set as Reward</button>
               </div>
             </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <div className='box'>
-                {' '}
-                <img className='coinIcon' src='images/FTM.png' alt="ftm" />
-                <h4 className='text-center coin'>FTM</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
-              </div>
-            </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <div className='box'>
-                {' '}
-                <img className='coinIcon' src='images/TOMB.png' alt='tomb'/>
-                <h4 className='text-center coin'>TOMB</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
-              </div>
-            </div>
-          </div>
+            ))}
         </div>
-        <div className='container'>
-          <div className='row'>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <div className='box'>
-                {' '}
-                <img className='coinIcon' src='images/TSHARE.png' alt="tshare"/>
-                <h4 className='text-center coin'>TSHARE</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
-              </div>
-            </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <div className='box'>
-                {' '}
-                <img className='coinIcon' src='images/xy3s1.png' alt="coinicon"/>
-                <h4 className='text-center coin'>XY3S1</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
-              </div>
-            </div>
-            <div className='col-lg-4 col-md-6 col-sm-12'>
-              <div className='box'>
-                {' '}
-                <img className='coinIcon' src='images/xy3s2.png' alt="x2"/>
-                <h4 className='text-center coin'>XY3S2</h4>
-                <h4 className='text-center dummytext'>Lorem Ipsum</h4>
-                <h4 className='text-center dummytext'>Dolor sit amet</h4>
-                <button className='btn btn-primary coinbtn'>Choose Now</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
