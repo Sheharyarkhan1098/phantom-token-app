@@ -1,0 +1,364 @@
+html,body {
+	line-height: 1.5;
+	box-sizing: border-box;
+	margin: 0;
+	overflow-x: hidden;
+	top: 0;
+	left: 0;
+	background-color: #000000;
+	background-image: url('../images/bg.png');
+	background-position: center;
+	background-size: cover;
+	opacity: 1;
+	background-repeat: no-repeat;
+}
+
+                                                            /*----NAVBAR------*/
+
+.nav-link {
+	text-decoration: none;
+	color: white !important;
+	font-family: "Roboto", Sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+}
+
+.nav-link {
+	margin: .8rem;
+}
+
+.nav-link:hover {
+	background-color: #000000;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.navbar {
+	background: transparent;
+	padding: 6rem 4rem;
+	height: 0rem;
+	min-height: 12vh;
+}
+
+.navbar .navbar-brand img {
+	display: block;
+	text-decoration: none;
+	width: 50px;
+}
+
+.navbar-toggler {
+	background-color: aliceblue;
+	border: none;
+	padding: 10px 6px;
+	outline: none;
+}
+
+.navbar-toggler span {
+	display: block;
+	width: 22px;
+	height: 2px;
+	border: 1px;
+	background: #000000;
+}
+
+.navbar-toggler span + span {
+	margin-top: 4px;
+	width: 22px;
+	background: #000000;
+}
+
+.navbar-toggler span + span {
+	width: 22px;
+	margin-top: 4px;
+}
+
+.navbar-expand-lg .navbar-nav .nav-link {
+	font-size: 1rem;
+	color: white !important;
+}
+
+.navbtn {
+	border-radius: 0 !important;
+	font-family: "Roboto", Sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 13px;
+	letter-spacing: 0em;
+	text-align: center;
+	background-color: #0157FF !important;
+	padding: 15px 15px 15px 15px;
+}
+
+.navbtn:hover {
+	background-color: transparent !important;
+	border: #0157FF  2px solid;
+}
+
+@media (min-width:380px) {
+	.navbar {
+		padding: 5rem 1rem;
+	}
+}
+
+@media only screen and (max-width:767px) {
+	.navbar-nav {
+		position: absolute;
+		z-index: 1;
+		background: #000000;
+		font-size: 1rem;
+		color: white;
+		width: 100%;
+		margin-left: -8% !important;
+	}
+
+	.dashboard-nav {
+		background-color: #FFFFFF;
+		padding: 0 !important;
+	}
+
+	.navbar-expand-lg .dashboard-nav .nav-link {
+		color: #000000 !important;
+		font-weight: 700;
+	}
+}
+
+
+
+                                                /*----BANNER------*/
+.banner {
+	position: relative;
+	margin-top: 5%;
+}
+
+.phantom-text {
+	color: #0157FF;
+	font-family: 'Roboto', sans-serif;
+	font-size: 2rem;
+	text-transform: uppercase;
+	font-weight: Bold;
+}
+
+.dashboard-text {
+	color: #FFFFFF;
+	font-family: 'Syncopate', sans-serif;
+	font-size: 4rem;
+	font-weight: 700, Bold;
+	font-style: normal;
+	line-height: 89px;
+	letter-spacing: -0.7431914210319519px;
+}
+
+.banner-detail {
+	color: #FFFFFF;
+	font-family: 'Roboto', sans-serif;
+	font-size: 1.5rem;
+	font-style: normal;
+	font-weight: 400;
+	letter-spacing: 0em;
+	margin-top: 2%;
+}
+
+@media (min-width:380px) {
+	.dashboard-text {
+		font-size: 2.5rem;
+	}
+
+	.phantom-text {
+		font-size: 1.6rem;
+	}
+
+	.banner-detail {
+		font-size: 1.3rem;
+	}
+}
+
+@media (min-width:350px) {
+	.dashboard-text {
+		font-size: 2rem;
+	}
+}
+
+
+
+
+                                                       /*--Coins Section--*/
+
+.coin {
+	margin-top: 15%;
+	align-items: center;
+}
+
+.box {
+	transition: 0.3s;
+	border: rgb(206, 206, 206) 1px solid;
+	border-radius: 10px;
+	box-shadow: 0.3s;
+	padding: 20px 0px 20px 0px;
+	background-color: transparent;
+	text-align: center;
+	background: rgb(15,15,15);
+	background: linear-gradient(356deg, rgba(15,15,15,1) 0%, rgba(28,28,28,1) 70%, rgba(36,36,36,1) 100%);
+	width: 80%;
+	margin: 9%;
+	margin-top: 20% !important;
+}
+
+.box .coin {
+	color: white;
+	font-family: 'Syncopate', sans-serif;
+	font-size: 31px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 33px;
+	letter-spacing: 0em;
+	text-align: center;
+	margin-bottom: 15%;
+	margin-top: 10%;
+}
+
+.box .dummytext {
+	font-family: Poppins;
+	font-size: 21px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 31px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: white;
+	margin-bottom: 5%;
+}
+
+.coinbtn {
+	border-radius: 30px;
+	font-family: "Roboto", Sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 13px;
+	letter-spacing: 0em;
+	text-align: center;
+	padding: 13px 45px 13px 45px;
+	background-color: #0157FF !important;
+	margin-top: 13%;
+	margin-bottom: 5%;
+}
+
+.coinbtn:hover {
+	background-color: transparent !important;
+	border: #0157FF  2px solid;
+}
+
+.coinIcon {
+	width: 35%;
+	margin-top: -100px;
+}
+
+
+                                                          /*---Footer-*/
+
+.footer {
+	margin-top: 2%;
+}
+
+.footer-text {
+	color: #FFFFFF;
+	font-family: 'Syncopate', sans-serif;
+	font-size: 1.5rem;
+	font-weight: 700, Bold;
+	font-style: normal;
+	text-align: left;
+}
+
+.block-1 {
+	margin-top: 5%;
+}
+
+.footer-logo img {
+	display: block;
+	text-decoration: none;
+	width: 120px;
+	margin: 10%;
+	margin-top: -5%;
+}
+
+ul.no-bullets {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	color: white;
+	font-family: "Roboto", Sans-serif;
+	font-weight: normal;
+}
+
+.footer_text {
+	color: white;
+	font-family: "Roboto", Sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+#footer-section {
+	margin-top: 32%;
+}
+
+.footerbtn {
+	border-radius: 0 !important;
+	font-family: "Roboto", Sans-serif;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: 13px;
+	letter-spacing: 0em;
+	text-align: center;
+	background-color: #0157FF !important;
+	padding: 15px 15px 15px 15px;
+}
+
+.footerbtn:hover {
+	background-color: transparent !important;
+	border: #0157FF  2px solid;
+}
+
+.fa-facebook {
+	margin-left: 5%;
+	padding: 12px;
+	font-size: 40px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50%;
+	background: white;
+	color: black;
+}
+
+.fa-twitter {
+	padding: 12px;
+	font-size: 40px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50%;
+	background: white;
+	color: black;
+}
+
+.fa-youtube-play {
+	padding: 12px;
+	font-size: 40px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50%;
+	background: white;
+	color: black;
+}
+
+.fa-instagram {
+	padding: 12px;
+	font-size: 40px;
+	text-align: center;
+	text-decoration: none;
+	border-radius: 50%;
+	background: white;
+	color: black;
+}
