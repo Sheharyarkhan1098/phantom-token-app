@@ -183,6 +183,15 @@ export default function Dashboard() {
   };
 
   const setRewardToken = async (address) => {
+    if (!address) {
+      await PTMContract.methods.unsetRewardToken().send({
+        from: walletAddress,
+        to: contractAddress,
+        // value: inputAmout * weiAmount
+      });
+      alert("token set!!");
+      return true;
+    }
     await PTMContract.methods.setRewardToken(address).send({
       from: walletAddress,
       to: contractAddress,
