@@ -130,7 +130,7 @@ ul {
                                                 /*----BANNER------*/
 .banner {
 	position: relative;
-	margin-top: 5%;
+	/* margin-top: 5%; */
 }
 
 .phantom-text {
@@ -187,7 +187,7 @@ ul {
                                                        /*--Coins Section--*/
 
 .coin {
-	margin-top: 15%;
+	margin-top: 5%;
 	align-items: center;
 }
 

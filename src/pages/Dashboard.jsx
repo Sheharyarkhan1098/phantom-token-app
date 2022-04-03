@@ -9,6 +9,7 @@ import LUNA_LOGO from "../../src/images/LUNA_LOGO.png";
 import Dai_logo from "../../src/images/dai_logo.png";
 import { PTMtoken } from "./ptmTokenAbis";
 import { isMobile } from "react-device-detect";
+import Button from 'react-bootstrap/Button';
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -25,31 +26,31 @@ export default function Dashboard() {
     {
       name: "Fantom",
       img: FTM,
-      des: "Description",
+      des: "",
       address: "",
     },
     {
       name: "DAI token",
       img: Dai_logo,
-      des: "Description",
+      des: "",
       address: "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     },
     {
       name: "TOMB token",
       img: TOMB,
-      des: "Description",
+      des: "",
       address: "0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
     },
     {
       name: "BOO token",
       img: BOO_LOGO,
-      des: "Description",
+      des: "",
       address: "0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     },
     {
       name: "Terra LUNA",
       img: LUNA_LOGO,
-      des: "Description",
+      des: "",
       address: "0x95dD59343a893637BE1c3228060EE6afBf6F0730",
     },
   ];
@@ -217,7 +218,7 @@ export default function Dashboard() {
     <div>
       <header className="header">
         <nav className="navbar navbar-expand-lg navbar-light bg-transparent navbar-default">
-          <div className="container-fluid">
+          <div className="container-fluid" style={{maxWidth: 1140}}>
             <a className="navbar-brand" href="/#">
               <img src="images/logo.png" alt="logo" />
             </a>
@@ -237,7 +238,10 @@ export default function Dashboard() {
               className="collapse navbar-collapse justify-content-between"
               id="navbarSupportedContent"
             >
-              <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <a className="nav-link active" aria-current="page" href="https://the-phantom-project.com">
+                    HOME
+                  </a>
+              {/* <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   {" "}
                   <a className="nav-link active" aria-current="page" href="/#">
@@ -280,8 +284,9 @@ export default function Dashboard() {
                     DASHBOARD
                   </a>{" "}
                 </li>
-              </ul>
+              </ul> */}
               <ul className=" ml-auto">
+                {window.ethereum ?
                 <button
                   className="btn btn-primary navbtn"
                   onClick={connectWalletPressed}
@@ -294,7 +299,20 @@ export default function Dashboard() {
                   ) : (
                     <span>CONNECT WALLET</span>
                   )}
-                </button>
+                </button> :
+                <Button
+                    className="btn btn-primary navbtn"
+                    href={"https://metamask.app.link/dapp/dashboard.the-phantom-project.com/"}
+                  >
+                    {walletAddress.length > 0 ? (
+                    "Connected: " +
+                    String(walletAddress).substring(0, 6) +
+                    "..." +
+                    String(walletAddress).substring(38)
+                  ) : (
+                    <span>CONNECT WALLET</span>
+                  )}
+                  </Button>}
               </ul>
             </div>
           </div>
@@ -316,12 +334,47 @@ export default function Dashboard() {
             second, and scale to thousands of
             <br />
             nodes per second.{" "}
+            <br />
           </p>
         </div>
+               <div style={{display: "flex", justifyContent: "center"}}>
+               {window.ethereum ?
+                 <button
+                  data-aos="fade-up"
+                  data-aos-duration="3000"
+                  className="btn btn-primary navbtn"
+                  onClick={connectWalletPressed}
+                >
+                  {walletAddress.length > 0 ? (
+                    "Connected: " +
+                    String(walletAddress).substring(0, 6) +
+                    "..." +
+                    String(walletAddress).substring(38)
+                  ) : (
+                    <span>CONNECT WALLET</span>
+                  )}
+                </button> :
+                 <Button
+                  data-aos="fade-up"
+                  data-aos-duration="3000"
+                  className="btn btn-primary navbtn"
+                  href={"https://metamask.app.link/dapp/dashboard.the-phantom-project.com/"}
+                >
+                  {walletAddress.length > 0 ? (
+                    "Connected: " +
+                    String(walletAddress).substring(0, 6) +
+                    "..." +
+                    String(walletAddress).substring(38)
+                  ) : (
+                    <span>CONNECT WALLET</span>
+                  )}
+                </Button>}
+                </div>
       </div>
 
       <div className="coin">
         <div className="container">
+            <h2 style={{margin: "20px 0", color: "white", textAlign: "center"}}> Connect to your wallet and select your favorite token from the list to get reflected in. </h2>
           <div className="row">
             {tokensData.map((obj) => (
               <div className="col-lg-4 col-md-6 col-sm-12">
@@ -330,12 +383,19 @@ export default function Dashboard() {
                   <img className="coinIcon" src={obj.img} alt="shiba" />
                   <h4 className="text-center coin">{obj.name}</h4>
                   <h4 className="text-center dummytext">{obj.des}</h4>
+                  {window.ethereum ? 
                   <button
                     className="btn btn-primary coinbtn"
                     onClick={() => setRewardToken(obj.address)}
                   >
                     Set as Reward
-                  </button>
+                  </button> :
+                  <Button
+                    className="btn btn-primary coinbtn"
+                    href={"https://metamask.app.link/dapp/dashboard.the-phantom-project.com/"}
+                  >
+                    Set as Reward
+                  </Button>}
                 </div>
               </div>
             ))}
