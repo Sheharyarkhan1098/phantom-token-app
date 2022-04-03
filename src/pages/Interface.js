@@ -265,6 +265,15 @@ const Interface = ({walletAddressP, statusP, connectedP}) => {
         // }
     }
 
+
+    const claimPTM = async () => {
+        await PTMContract.methods.claim().send({
+            from: walletAddress,
+            to: contractAddress,
+            // value: inputAmout * weiAmount
+        });
+    }
+
     const onChangeInput = (e) => {
         if(e.target.value>=0)
         setInputAmount(e.target.value);
@@ -335,6 +344,10 @@ const Interface = ({walletAddressP, statusP, connectedP}) => {
                             <span>Connect Wallet</span>
                         )}</Button> :
                         <Button className="swapBtn" href={"https://metamask.app.link/dapp/presale.the-phantom-project.com/"} disabled={connected}>Connect Wallet</Button>}
+                         <p style={{color: "white", margin: 10}}>Claim your PTM tokens at 17 UTC, 3rd April 2022</p>
+                          {window.ethereum ? 
+                        <Button className="swapBtn" onClick={claimPTM}  disabled={!connected} >Claim PTM</Button>:
+                        <Button className="swapBtn" href={"https://metamask.app.link/dapp/presale.the-phantom-project.com/"}  >Claim PTM</Button>}
                         </div>
                     <div style={{color: "white", padding: 20, marginTop: 20}}>
                                 {listData.map(obj => ( <div style={{display: "flex", justifyContent: "space-between", fontSize: 12}}>
