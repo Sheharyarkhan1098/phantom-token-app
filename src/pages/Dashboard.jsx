@@ -5,8 +5,10 @@ import Web3 from "web3";
 import BOO_LOGO from "../../src/images/BOO_LOGO.png";
 import TOMB from "../../src/images/TOMB.png";
 import FTM from "../../src/images/FTM.png";
-import shiba from "../../src/images/shiba.png";
+import LUNA_LOGO from "../../src/images/LUNA_LOGO.png";
+import Dai_logo from "../../src/images/dai_logo.png";
 import { PTMtoken } from "./ptmTokenAbis";
+import { isMobile } from "react-device-detect";
 
 const web3 = new Web3(Web3.givenProvider);
 
@@ -21,10 +23,16 @@ export default function Dashboard() {
 
   const tokensData = [
     {
-      name: "BOO token",
-      img: BOO_LOGO,
+      name: "Fantom",
+      img: FTM,
       des: "Description",
-      address: "0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
+      address: "",
+    },
+    {
+      name: "DAI token",
+      img: Dai_logo,
+      des: "Description",
+      address: "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
     },
     {
       name: "TOMB token",
@@ -33,20 +41,14 @@ export default function Dashboard() {
       address: "0x6c021ae822bea943b2e66552bde1d2696a53fbb7",
     },
     {
-      name: "DAI token",
-      img: shiba,
+      name: "BOO token",
+      img: BOO_LOGO,
       des: "Description",
-      address: "0x8D11eC38a3EB5E956B052f67Da8Bdc9bef8Abf3E",
-    },
-    {
-      name: "Fantom",
-      img: FTM,
-      des: "Description",
-      address: "",
+      address: "0x841FAD6EAe12c286d1Fd18d1d525DFfA75C7EFFE",
     },
     {
       name: "Terra LUNA",
-      img: shiba,
+      img: LUNA_LOGO,
       des: "Description",
       address: "0x95dD59343a893637BE1c3228060EE6afBf6F0730",
     },
@@ -301,7 +303,7 @@ export default function Dashboard() {
 
       <div className="container">
         <div className="banner" data-aos="fade-up" data-aos-duration="3000">
-          <h3 className="text-center phantom-text">PHANTOM COIN</h3>
+          <h3 className="text-center phantom-text">PHANTOM TOKEN</h3>
           <h1 className="text-center dashboard-text">Dashboard</h1>
           <p className="text-center banner-detail">
             {" "}
